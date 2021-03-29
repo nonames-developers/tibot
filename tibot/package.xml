@@ -20,5 +20,6 @@
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>gazebo_house</exec_depend>
   <exec_depend>provide_map</exec_depend>
+  <exec_depend>get_map_data</exec_depend>
   <export><metapackage/></export>
 </package>
