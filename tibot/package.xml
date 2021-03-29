@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tibot</name>
+  <version>1.0.0</version>
+  <description>
+    ROS packages for Tibot (meta package)
+  </description>
+  <license>Apache 2.0</license>
+  <license>BSD</license>
+  <author email="adsona1@epsg.upv.es">Adrian</author>
+  <author email="maresrod@epsg.upv.es">Marcelo</author>
+  <author email="masope6@epsg.upv.es">María</author>
+  <author email="margarb6@epsg.upv.es">Marta</author>
+  <author email="mialnis@epsg.upv.es">Miguel</author>
+  <maintainer email="adsona1@epsg.upv.es">Adrian</maintainer>
+  <url type="website">http://wiki.ros.org/turtlebot3</url>
+  <url type="emanual">http://turtlebot3.robotis.com</url>
+  <url type="repository">https://github.com/ROBOTIS-GIT/turtlebot3</url>
+  <url type="bugtracker">https://github.com/ROBOTIS-GIT/turtlebot3/issues</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <!--<exec_depend>gazebo_house</exec_depend>
+  <exec_depend>turtlebot3_description</exec_depend>
+  <exec_depend>turtlebot3_example</exec_depend>
+  <exec_depend>turtlebot3_navigation</exec_depend>
+  <exec_depend>turtlebot3_slam</exec_depend>
+  <exec_depend>turtlebot3_teleop</exec_depend>-->
+  <export><metapackage/></export>
+</package>
