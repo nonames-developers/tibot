@@ -19,5 +19,6 @@
   <url type="bugtracker">https://github.com/ROBOTIS-GIT/turtlebot3/issues</url>
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>gazebo_house</exec_depend>
+  <exec_depend>provide_map</exec_depend>
   <export><metapackage/></export>
 </package>
