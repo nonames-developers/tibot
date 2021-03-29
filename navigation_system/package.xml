@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>gazebo_house</name>
+  <name>navigation_system</name>
   <version>0.0.0</version>
-  <description>The gazebo_house package</description>
+  <description>The navigation_system package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
-  <maintainer email="adsona1@epsg.upv.es">Adrian</maintainer>
+  <maintainer email="adsona1@epsg.edu.es">Adrian</maintainer>
 
   <!-- One license tag required, multiple allowed, one license per tag -->
   <license>TODO</license>

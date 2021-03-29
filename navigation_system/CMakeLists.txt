@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(gazebo_house)
+project(navigation_system)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
@@ -9,9 +9,6 @@ find_package(catkin REQUIRED COMPONENTS
 ###################################
 ## catkin specific configuration ##
 ###################################
-
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
 catkin_package(
 )
 
@@ -20,8 +17,16 @@ catkin_package(
 ###########
 
 ## Specify additional locations of header files
-## Your package locations should be listed before other locations
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
 )
+
+
+
+
+
+
+
+
+

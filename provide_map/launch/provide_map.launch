@@ -1,5 +1,5 @@
 <launch>
-    <arg name="map_file" default="/home/sotito/catkin_ws/maps/my_map.yaml"/>
+    <arg name="map_file" default="/home/daghdha/catkin_ws/src/tibot/navigation_system/maps/my_map.yaml"/>
     <node
         name="map_server"
         type="map_server"
