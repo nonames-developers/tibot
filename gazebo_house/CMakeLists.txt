@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.0.2)
+project(gazebo_house)
+
+## Find catkin macros and libraries
+find_package(catkin REQUIRED COMPONENTS
+  rospy
+)
+
+###################################
+## catkin specific configuration ##
+###################################
+
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+catkin_package(
+)
+
+###########
+## Build ##
+###########
+
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
+include_directories(
+# include
+  ${catkin_INCLUDE_DIRS}
+)

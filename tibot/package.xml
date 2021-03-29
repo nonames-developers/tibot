@@ -18,11 +18,8 @@
   <url type="repository">https://github.com/ROBOTIS-GIT/turtlebot3</url>
   <url type="bugtracker">https://github.com/ROBOTIS-GIT/turtlebot3/issues</url>
   <buildtool_depend>catkin</buildtool_depend>
-  <!--<exec_depend>gazebo_house</exec_depend>
-  <exec_depend>turtlebot3_description</exec_depend>
-  <exec_depend>turtlebot3_example</exec_depend>
-  <exec_depend>turtlebot3_navigation</exec_depend>
-  <exec_depend>turtlebot3_slam</exec_depend>
-  <exec_depend>turtlebot3_teleop</exec_depend>-->
+  <exec_depend>gazebo_house</exec_depend>
+  <exec_depend>provide_map</exec_depend>
+  <exec_depend>get_map_data</exec_depend>
   <export><metapackage/></export>
 </package>
