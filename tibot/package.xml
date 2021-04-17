@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tibot</name>
+  <version>1.0.0</version>
+  <description>
+    ROS packages for Tibot (meta package)
+  </description>
+  <license>Apache 2.0</license>
+  <license>BSD</license>
+  <author email="adsona1@epsg.upv.es">Adrian</author>
+  <author email="maresrod@epsg.upv.es">Marcelo</author>
+  <author email="masope6@epsg.upv.es">María</author>
+  <author email="margarb6@epsg.upv.es">Marta</author>
+  <author email="mialnis@epsg.upv.es">Miguel</author>
+  <maintainer email="adsona1@epsg.upv.es">Adrian</maintainer>
+  <url type="website">In progress</url>
+  <url type="emanual">In progress</url>
+  <url type="repository">https://github.com/nonames-developers/tibot/tree/main</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <export><metapackage/></export>
+</package>
