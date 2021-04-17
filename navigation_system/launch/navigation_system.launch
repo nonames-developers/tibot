@@ -12,7 +12,7 @@
   <arg name="z_pos" default="0.0"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find gazebo_house)/worlds/house.world"/>
+    <arg name="world_name" value="$(find navigation_system)/worlds/house.world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -24,11 +24,14 @@
 
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 
-  <!-- MAPPING OF ENVIRONMENT -->
+  <!-- MAPPING -->
   <arg name="map_file" default="$(find navigation_system)/maps/my_map.yaml"/>
-
+  
   <!-- MAP SERVER -->
-  <include file="$(find provide_map)/launch/provide_map.launch"/>
+  <node name="map_server" type="map_server" pkg="map_server" args="$(arg map_file)"/>
+
+  <!-- GET MAP DATA -->
+  <node name="map_client" pkg="navigation_system" type="call_map_service.py" output="screen"/>
 
   <!-- AMCL -->
   <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
@@ -51,8 +54,7 @@
   <arg name="open_rviz" default="true"/>
   <arg name="rviz_config" default="$(find navigation_system)/rviz/navigation_system_config.rviz"/>
   <group if="$(arg open_rviz)">
-    <node pkg="rviz" type="rviz" name="rviz" required="true"
-          args="-d $(arg rviz_config)"/>
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(arg rviz_config)"/>
   </group>
 
 </launch>
