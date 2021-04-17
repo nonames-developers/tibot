@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(navigation_system)
+project(tibot_navigation_system)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS

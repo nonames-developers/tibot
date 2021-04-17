@@ -12,7 +12,7 @@
   <arg name="z_pos" default="0.0"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find navigation_system)/worlds/house.world"/>
+    <arg name="world_name" value="$(find tibot_navigation_system)/worlds/house.world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -25,13 +25,13 @@
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 
   <!-- MAPPING -->
-  <arg name="map_file" default="$(find navigation_system)/maps/my_map.yaml"/>
+  <arg name="map_file" default="$(find tibot_navigation_system)/maps/my_map.yaml"/>
   
   <!-- MAP SERVER -->
   <node name="map_server" type="map_server" pkg="map_server" args="$(arg map_file)"/>
 
   <!-- GET MAP DATA -->
-  <node name="map_client" pkg="navigation_system" type="call_map_service.py" output="screen"/>
+  <node name="map_client" pkg="tibot_navigation_system" type="call_map_service.py" output="screen"/>
 
   <!-- AMCL -->
   <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
@@ -41,18 +41,18 @@
   <arg name="odom_topic" default="odom" />
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
-    <rosparam file="$(find navigation_system)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find navigation_system)/param/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find navigation_system)/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find navigation_system)/param/move_base_params.yaml" command="load" />
-    <rosparam file="$(find navigation_system)/param/dwa_local_planner_params_$(arg model).yaml" command="load" />
+    <rosparam file="$(find tibot_navigation_system)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find tibot_navigation_system)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find tibot_navigation_system)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find tibot_navigation_system)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find tibot_navigation_system)/param/dwa_local_planner_params_$(arg model).yaml" command="load" />
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
   </node>
   
   <!-- RVIZ -->
   <arg name="open_rviz" default="true"/>
-  <arg name="rviz_config" default="$(find navigation_system)/rviz/navigation_system_config.rviz"/>
+  <arg name="rviz_config" default="$(find tibot_navigation_system)/rviz/navigation_system_config.rviz"/>
   <group if="$(arg open_rviz)">
     <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(arg rviz_config)"/>
   </group>

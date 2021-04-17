@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>navigation_system</name>
+  <name>tibot_navigation_system</name>
   <version>0.0.0</version>
-  <description>The navigation_system package</description>
+  <description>The tibot_navigation_system package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <maintainer email="adsona1@epsg.edu.es">Adrian</maintainer>
