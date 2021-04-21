@@ -39,10 +39,10 @@ class MoveFixedPos():
             w_or = self.places_dict.get(place)[3]
             rospy.loginfo("The w orientation is %s", w_or)
         
-        # Creamos una acción cliente llamada "move_base" con una acción MoveBaseAction
+        # Creamos una accion cliente llamada "move_base" con una accion MoveBaseAction
         client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
 
-        # Esperamos hasta que el servidor esté listo para escuchar
+        # Esperamos hasta que el servidor este listo para escuchar
         client.wait_for_server()
 
         # Creamos el goal con el constructor MoveBaseGoal
@@ -58,18 +58,18 @@ class MoveFixedPos():
         # w orientation
         goal.target_pose.pose.orientation.w = w_or
 
-        # Envío del goal al action server
+        # Envio del goal al action server
         client.send_goal(goal)
 
-        # Esperamos a que el servidor finalize la acción
+        # Esperamos a que el servidor finalize la accion
         wait = client.wait_for_result()
 
-        # Si el resultado no es devuelto, asumimos que el servidor está offline
+        # Si el resultado no es devuelto, asumimos que el servidor esta offline
         if not wait:
             rospy.logerr("Action server not available!")
             rospy.signal_shutdown("Action server not available!")
         else:
-            # Resultado de la ejecución de la acción
+            # Resultado de la ejecucion de la accion
             response = MoveFixedPosMsgResponse()
             response.success = True
             return response
