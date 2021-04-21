@@ -1,2 +1,2 @@
 # tibot
-A robotics and artificial intelligence project 
+A robotics and artificial intelligence project

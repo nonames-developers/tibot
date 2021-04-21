@@ -5,6 +5,9 @@ project(tibot_navigation_system)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
+  geometry_msgs
+  actionlib_msgs
+  message_generation
 )
 
 ################################################
@@ -20,13 +23,20 @@ add_message_files(
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-# Service1.srv
+  MoveFixedPosMsg.srv
+)
+
+add_action_files(
+  DIRECTORY action
+  FILES
 )
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  std_msgs  # Or other packages containing msgs
+  std_msgs
+  geometry_msgs
+  actionlib_msgs
 )
 
 ###################################
@@ -41,8 +51,10 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   # INCLUDE_DIRS include
-  # LIBRARIES get_map_data
-  CATKIN_DEPENDS rospy
+  # LIBRARIES
+  CATKIN_DEPENDS 
+  rospy
+  actionlib_msgs
 )
 
 ###########

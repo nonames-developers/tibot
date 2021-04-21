@@ -1,0 +1,6 @@
+# request
+string place
+# geometry_msgs/Pose pose
+---
+# response
+bool success

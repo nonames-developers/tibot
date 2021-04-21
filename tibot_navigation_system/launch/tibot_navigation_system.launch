@@ -22,16 +22,16 @@
 
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
 
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 
   <!-- MAPPING -->
   <arg name="map_file" default="$(find tibot_navigation_system)/maps/my_map.yaml"/>
   
   <!-- MAP SERVER -->
-  <node name="map_server" type="map_server" pkg="map_server" args="$(arg map_file)"/>
+  <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)"/>
 
   <!-- GET MAP DATA -->
-  <node name="map_client" pkg="tibot_navigation_system" type="call_map_service.py" output="screen"/>
+  <node pkg="tibot_navigation_system" type="call_map_service.py" name="call_map_service_node" output="screen"/>
 
   <!-- AMCL -->
   <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
@@ -39,7 +39,7 @@
   <!-- MOVE_BASE -->
   <arg name="cmd_vel_topic" default="/cmd_vel" />
   <arg name="odom_topic" default="odom" />
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+  <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="screen">
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
     <rosparam file="$(find tibot_navigation_system)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find tibot_navigation_system)/param/local_costmap_params.yaml" command="load" />
@@ -49,10 +49,13 @@
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
   </node>
-  
+
+  <!-- MOVE FIXED POSITION -->
+  <node pkg="tibot_navigation_system" type="move_fixed_pos_service.py" name="move_fixed_pos_service_node" output="screen"/>
+
   <!-- RVIZ -->
   <arg name="open_rviz" default="true"/>
-  <arg name="rviz_config" default="$(find tibot_navigation_system)/rviz/navigation_system_config.rviz"/>
+  <arg name="rviz_config" default="$(find tibot_navigation_system)/rviz/tibot_navigation_system_config.rviz"/>
   <group if="$(arg open_rviz)">
     <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(arg rviz_config)"/>
   </group>
