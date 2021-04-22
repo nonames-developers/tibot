@@ -19,9 +19,9 @@ class MoveFixedPos():
         rospy.loginfo("Service /move_robot_service ready!")
 
         self.places_dict = dict()
-        self.places_dict.update({"bed": (1.0, 1.0, math.sin(self.degree_to_rad(90)), math.cos(self.degree_to_rad(90)))})
-        self.places_dict.update({"table": (2.0, 2.0, math.sin(self.degree_to_rad(90)), math.cos(self.degree_to_rad(90)))})
-        self.places_dict.update({"wardrobe": (1.5, 2.0, math.sin(self.degree_to_rad(90)), math.cos(self.degree_to_rad(90)))})
+        self.places_dict.update({"bed": (-0.5, 2.5, math.sin(self.degree_to_rad(90)), math.cos(self.degree_to_rad(90)))})
+        self.places_dict.update({"table": (1.2, 2.4, math.sin(self.degree_to_rad(180)), math.cos(self.degree_to_rad(180)))})
+        self.places_dict.update({"wardrobe": (2.1, 3.0, math.sin(self.degree_to_rad(180)), math.cos(self.degree_to_rad(180)))})
 
         rospy.spin()  # Mantiene el servicio abierto
 
@@ -39,40 +39,40 @@ class MoveFixedPos():
             w_or = self.places_dict.get(place)[3]
             rospy.loginfo("The w orientation is %s", w_or)
         
-        # Creamos una accion cliente llamada "move_base" con una accion MoveBaseAction
-        client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
+            # Creamos una accion cliente llamada "move_base" con una accion MoveBaseAction
+            client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
 
-        # Esperamos hasta que el servidor este listo para escuchar
-        client.wait_for_server()
+            # Esperamos hasta que el servidor este listo para escuchar
+            client.wait_for_server()
 
-        # Creamos el goal con el constructor MoveBaseGoal
-        goal = MoveBaseGoal()
-        goal.target_pose.header.frame_id = "map"
-        goal.target_pose.header.stamp = rospy.Time.now()
-        # x position
-        goal.target_pose.pose.position.x = x_pos
-        # y position
-        goal.target_pose.pose.position.y = y_pos
-        # z orientation
-        goal.target_pose.pose.orientation.z = z_or
-        # w orientation
-        goal.target_pose.pose.orientation.w = w_or
+            # Creamos el goal con el constructor MoveBaseGoal
+            goal = MoveBaseGoal()
+            goal.target_pose.header.frame_id = "map"
+            goal.target_pose.header.stamp = rospy.Time.now()
+            # x position
+            goal.target_pose.pose.position.x = x_pos
+            # y position
+            goal.target_pose.pose.position.y = y_pos
+            # z orientation
+            goal.target_pose.pose.orientation.z = z_or
+            # w orientation
+            goal.target_pose.pose.orientation.w = w_or
 
-        # Envio del goal al action server
-        client.send_goal(goal)
+            # Envio del goal al action server
+            client.send_goal(goal)
 
-        # Esperamos a que el servidor finalize la accion
-        wait = client.wait_for_result()
+            # Esperamos a que el servidor finalize la accion
+            wait = client.wait_for_result()
 
-        # Si el resultado no es devuelto, asumimos que el servidor esta offline
-        if not wait:
-            rospy.logerr("Action server not available!")
-            rospy.signal_shutdown("Action server not available!")
-        else:
-            # Resultado de la ejecucion de la accion
-            response = MoveFixedPosMsgResponse()
-            response.success = True
-            return response
+            # Si el resultado no es devuelto, asumimos que el servidor esta offline
+            if not wait:
+                rospy.logerr("Action server not available!")
+                rospy.signal_shutdown("Action server not available!")
+            else:
+                # Resultado de la ejecucion de la accion
+                response = MoveFixedPosMsgResponse()
+                response.success = True
+                return response
 
         return False
 
