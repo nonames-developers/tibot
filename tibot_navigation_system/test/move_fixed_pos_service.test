@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="tibot_navigation_system" type="move_fixed_pos_service.py" name="move_fixed_pos_service_node"/>
+  <test pkg="tibot_navigation_system" type="test_move_fixed_pos_service_cb.py" test-name="test_move_fixed_pos_service_cb"/>
+</launch>

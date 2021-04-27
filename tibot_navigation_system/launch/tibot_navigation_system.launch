@@ -48,6 +48,7 @@
 
   <!-- AMCL -->
   <include file="$(find tibot_navigation_system)/launch/tibot_amcl.launch"/>
+  
   <!-- RVIZ -->
   <arg name="open_rviz" default="true"/>
   <arg name="rviz_config" default="$(find tibot_navigation_system)/rviz/tibot_navigation_system_config.rviz"/>
