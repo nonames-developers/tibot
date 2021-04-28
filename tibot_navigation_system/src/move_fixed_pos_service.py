@@ -40,7 +40,7 @@ class MoveFixedPos():
     """
 
     def __init__(self):
-        rospy.init_node('move_fixed_pos_service_node', anonymous=True)
+        rospy.init_node('move_fixed_pos_service', anonymous=True)
         self.service_server = rospy.Service(
             'move_robot_service', MoveFixedPosMsg, self.srv_callback)
         rospy.loginfo("Service /move_robot_service ready!")
@@ -130,7 +130,7 @@ class MoveFixedPos():
 def main():
     """ Main function to init MoveFixedPos
 
-    Raises:
+    Exceptions:
         ROSInterruptException: Exception for operations that interrupted, e.g. due to shutdown.
     """
     try:
