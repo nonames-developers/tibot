@@ -23,16 +23,16 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from actionlib_msgs.msg import GoalStatus
 from geometry_msgs.msg import Pose, Point, Quaternion
 from tf.transformations import quaternion_from_euler
-from tibot_navigation_system.srv import MoveFixedPosMsg, MoveFixedPosMsgResponse
+from tibot_navigation_system.srv import MoveFixedPosMsg, MoveFixedPosMsgRequest, MoveFixedPosMsgResponse
 
 
 class MoveFixedPos():
     """
-    Representation of a Tibot movement
+    Representation of Tibot movement
 
     Attributes:
-        __service_server (Rospy.Service): Service to listen requests
-        __places_dict (Dict): Dict object
+        service_server (Rospy.Service): Service to listen requests
+        places_dict (Dict): Dict object
 
     Methods:
         srv_callback(): Callback to move to received position 
@@ -141,4 +141,5 @@ def main():
 ####################################################################################################
 
 
+# Init
 main()

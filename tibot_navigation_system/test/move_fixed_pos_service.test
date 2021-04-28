@@ -1,4 +1,29 @@
 <launch>
+
+  <!-- SUPPORT SERVICES AND NODES -->
+  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>  
+  <!-- TURTLEBOT 3 -->
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
+    <arg name="model" value="$(arg model)"/>
+  </include>
+  <!-- MOVE_BASE -->
+  <arg name="cmd_vel_topic" default="/cmd_vel"/>
+  <arg name="odom_topic" default="odom"/>
+  <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="screen">
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+    <rosparam file="$(find tibot_navigation_system)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find tibot_navigation_system)/param/local_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find tibot_navigation_system)/param/global_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find tibot_navigation_system)/param/move_base_params.yaml" command="load"/>
+    <rosparam file="$(find tibot_navigation_system)/param/dwa_local_planner_params_$(arg model).yaml" command="load"/>
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+    <remap from="odom" to="$(arg odom_topic)"/>
+  </node>
+
+  <!-- NODE TO TEST -->
   <node pkg="tibot_navigation_system" type="move_fixed_pos_service.py" name="move_fixed_pos_service_node"/>
-  <test pkg="tibot_navigation_system" type="test_move_fixed_pos_service_cb.py" test-name="test_move_fixed_pos_service_cb"/>
+  
+  <!-- TEST -->
+  <test pkg="tibot_navigation_system" type="run_tests_move_fixed_pos_service.py" test-name="run_tests_move_fixed_pos_service"/>
+
 </launch>

@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(tibot_navigation_system)
 
+catkin_python_setup()
+
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   rospy
@@ -9,6 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   message_generation
 )
+
+## For test ##
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
