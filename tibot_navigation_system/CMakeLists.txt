@@ -86,9 +86,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(explore
-  src/costmap_client.cpp
-  src/explore.cpp
-  src/frontier_search.cpp
+  src/cpp/costmap_client.cpp
+  src/cpp/explore.cpp
+  src/cpp/frontier_search.cpp
 )
 
 ## Specify additional locations of header files
