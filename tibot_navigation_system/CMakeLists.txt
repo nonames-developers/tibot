@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   actionlib_msgs
   message_generation
+  smach_ros
 )
 
 ## For test ##

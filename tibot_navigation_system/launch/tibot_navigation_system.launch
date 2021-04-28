@@ -35,6 +35,9 @@
     <remap from="odom" to="$(arg odom_topic)"/>
   </node>
 
+  <!-- STATE MACHINE -->
+  <node pkg="tibot_navigation_system" type="fsm.py" name="move_base_action_client" output="screen"/>
+
   <!-- MOVE FIXED POSITION -->
   <node pkg="tibot_navigation_system" type="move_fixed_pos_service.py" name="move_fixed_pos_service_node" output="screen"/>
 
