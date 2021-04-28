@@ -37,6 +37,21 @@
 
   <!-- MOVE FIXED POSITION -->
   <node pkg="tibot_navigation_system" type="move_fixed_pos_service.py" name="move_fixed_pos_service_node" output="screen"/>
+  
+  <!-- AUTOMATIC MAPPING -->
+  <node pkg="tibot_navigation_system" type="explore" name="automatic_mapping_service_node" output="screen">
+    <param name="robot_base_frame" value="base_link"/>
+    <param name="costmap_topic" value="map"/>
+    <param name="costmap_updates_topic" value="map_updates"/>
+    <param name="visualize" value="true"/>
+    <param name="planner_frequency" value="0.33"/>
+    <param name="progress_timeout" value="30.0"/>
+    <param name="potential_scale" value="3.0"/>
+    <param name="orientation_scale" value="0.0"/>
+    <param name="gain_scale" value="1.0"/>
+    <param name="transform_tolerance" value="0.3"/>
+    <param name="min_frontier_size" value="0.75"/>
+  </node>
 
   <!-- SLAM: Gmapping, Cartographer, Hector, Karto, Frontier_exploration, RTAB-Map -->
   <arg name="slam_methods" default="hector" doc="slam type [gmapping, hector, frontier_exploration]"/>
@@ -54,5 +69,6 @@
   <group if="$(arg open_rviz)">
     <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(arg rviz_config)"/>
   </group>
+
 
 </launch>
