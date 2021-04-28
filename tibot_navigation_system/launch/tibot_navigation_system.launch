@@ -36,7 +36,7 @@
   </node>
 
   <!-- STATE MACHINE -->
-  <node pkg="tibot_navigation_system" type="fsm.py" name="move_base_action_client" output="screen"/>
+  <!-- <node pkg="tibot_navigation_system" type="fsm.py" name="move_base_action_client" output="screen"/> -->
 
   <!-- MOVE FIXED POSITION -->
   <node pkg="tibot_navigation_system" type="move_fixed_pos_service.py" name="move_fixed_pos_service_node" output="screen"/>
@@ -56,7 +56,7 @@
     <param name="min_frontier_size" value="0.75"/>
   </node>
 
-  <!-- SLAM: Gmapping, Cartographer, Hector, Karto, Frontier_exploration, RTAB-Map -->
+  <!-- SLAM: Gmapping, Hector, Frontier_exploration -->
   <arg name="slam_methods" default="hector" doc="slam type [gmapping, hector, frontier_exploration]"/>
   <arg name="configuration_basename" default="turtlebot3_lds_2d.lua"/>
   <include file="$(find turtlebot3_slam)/launch/turtlebot3_$(arg slam_methods).launch">
@@ -73,6 +73,5 @@
   <group if="$(arg open_rviz)">
     <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(arg rviz_config)"/>
   </group>
-
 
 </launch>
