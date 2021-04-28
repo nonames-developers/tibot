@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(tibot_navigation_system)
 
+catkin_python_setup()
+
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   rospy
@@ -16,7 +18,11 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf
   visualization_msgs
+  smach_ros
 )
+
+## For test ##
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -121,14 +127,7 @@ install(DIRECTORY launch/
 ## Testing ##
 #############
 
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_test.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+catkin_add_nosetests(test)
 
 
 
