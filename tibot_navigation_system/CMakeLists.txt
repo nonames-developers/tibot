@@ -1,14 +1,28 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(tibot_navigation_system)
 
+catkin_python_setup()
+
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   rospy
-  std_msgs
-  geometry_msgs
-  actionlib_msgs
   message_generation
+  actionlib
+  actionlib_msgs
+  costmap_2d
+  geometry_msgs
+  map_msgs
+  move_base_msgs
+  nav_msgs
+  roscpp
+  std_msgs
+  tf
+  visualization_msgs
+  smach_ros
 )
+
+## For test ##
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -24,6 +38,7 @@ add_message_files(
 add_service_files(
   FILES
   MoveFixedPosMsg.srv
+  AutomaticExploration.srv
 )
 
 add_action_files(
@@ -54,32 +69,65 @@ catkin_package(
   # LIBRARIES
   CATKIN_DEPENDS 
   rospy
+  actionlib
   actionlib_msgs
+  costmap_2d
+  geometry_msgs
+  map_msgs
+  move_base_msgs
+  nav_msgs
+  roscpp
+  std_msgs
+  tf
+  visualization_msgs
+  message_runtime
 )
 
 ###########
 ## Build ##
 ###########
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_executable(explore
+  src/cpp/costmap_client.cpp
+  src/cpp/explore.cpp
+  src/cpp/frontier_search.cpp
+)
+
 ## Specify additional locations of header files
-## Your package locations should be listed before other locations
 include_directories(
-# include
   ${catkin_INCLUDE_DIRS}
+  include
+)
+
+add_dependencies(explore ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(explore ${catkin_LIBRARIES})
+
+
+#############
+## Install ##
+#############
+
+# install nodes
+install(TARGETS explore
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+# install roslaunch files
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
 )
 
 #############
 ## Testing ##
 #############
 
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_test.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+catkin_add_nosetests(test)
 
 
 
