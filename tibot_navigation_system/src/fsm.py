@@ -14,7 +14,7 @@ from collections import OrderedDict
 
 # Puntos de escondite
 waypoints = [
-    ['GO_TO_BED', (-0.5, 2.5, 0.0), (0.0, 0.0, 1.0, 0.0)],
+    ['GO_TO_BED', (-0.3, 2.5, 0.0), (0.0, 0.0, 1.0, 0.0)],
     ['GO_TO_TABLE', (1.2, 2.4, 0.0), (0.0, 0.0, 1.0, 0.0)],
     ['GO_TO_WARDROBE', (2.1, 3.0, 0.0), (0.0, 0.0, 1.0, 0.0)]
 ]

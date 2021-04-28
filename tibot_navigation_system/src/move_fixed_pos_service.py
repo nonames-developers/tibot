@@ -47,7 +47,7 @@ class MoveFixedPos():
 
         self.places_dict = dict()
         self.places_dict.update(
-            {"bed": (-0.5, 2.5, math.sin(self.degree_to_rad(90)), math.cos(self.degree_to_rad(90)))})
+            {"bed": (-0.3, 2.5, math.sin(self.degree_to_rad(90)), math.cos(self.degree_to_rad(90)))})
         self.places_dict.update({"table": (1.2, 2.4, math.sin(
             self.degree_to_rad(180)), math.cos(self.degree_to_rad(180)))})
         self.places_dict.update({"wardrobe": (2.1, 3.0, math.sin(

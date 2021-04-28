@@ -139,6 +139,8 @@ Visualization Manager:
           Value: true
         odom:
           Value: true
+        scanmatcher_frame:
+          Value: true
         wheel_left_link:
           Value: true
         wheel_right_link:
@@ -163,6 +165,8 @@ Visualization Manager:
                   {}
                 wheel_right_link:
                   {}
+          scanmatcher_frame:
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -452,11 +456,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 97.1410065
+      Scale: 146.34462
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: 0.545584321
-      Y: 2.47694874
+      X: 1.46889985
+      Y: 1.50300956
     Saved: ~
 Window Geometry:
   Displays:
