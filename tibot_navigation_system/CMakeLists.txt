@@ -4,10 +4,18 @@ project(tibot_navigation_system)
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   rospy
-  std_msgs
-  geometry_msgs
-  actionlib_msgs
   message_generation
+  actionlib
+  actionlib_msgs
+  costmap_2d
+  geometry_msgs
+  map_msgs
+  move_base_msgs
+  nav_msgs
+  roscpp
+  std_msgs
+  tf
+  visualization_msgs
 )
 
 ################################################
@@ -24,6 +32,7 @@ add_message_files(
 add_service_files(
   FILES
   MoveFixedPosMsg.srv
+  AutomaticExploration.srv
 )
 
 add_action_files(
@@ -54,18 +63,58 @@ catkin_package(
   # LIBRARIES
   CATKIN_DEPENDS 
   rospy
+  actionlib
   actionlib_msgs
+  costmap_2d
+  geometry_msgs
+  map_msgs
+  move_base_msgs
+  nav_msgs
+  roscpp
+  std_msgs
+  tf
+  visualization_msgs
+  message_runtime
 )
 
 ###########
 ## Build ##
 ###########
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_executable(explore
+  src/costmap_client.cpp
+  src/explore.cpp
+  src/frontier_search.cpp
+)
+
 ## Specify additional locations of header files
-## Your package locations should be listed before other locations
 include_directories(
-# include
   ${catkin_INCLUDE_DIRS}
+  include
+)
+
+add_dependencies(explore ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(explore ${catkin_LIBRARIES})
+
+
+#############
+## Install ##
+#############
+
+# install nodes
+install(TARGETS explore
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+# install roslaunch files
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
 )
 
 #############
