@@ -85,7 +85,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(explore
+add_executable(tibot_navigation_system
   src/cpp/costmap_client.cpp
   src/cpp/explore.cpp
   src/cpp/frontier_search.cpp
@@ -97,8 +97,8 @@ include_directories(
   include
 )
 
-add_dependencies(explore ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(explore ${catkin_LIBRARIES})
+add_dependencies(tibot_navigation_system ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(tibot_navigation_system ${catkin_LIBRARIES})
 
 
 #############
@@ -106,7 +106,7 @@ target_link_libraries(explore ${catkin_LIBRARIES})
 #############
 
 # install nodes
-install(TARGETS explore
+install(TARGETS tibot_navigation_system
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

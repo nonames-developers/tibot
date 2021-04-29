@@ -305,7 +305,6 @@ namespace explore
     move_base_client_.cancelAllGoals();
     exploring_timer_.stop();
     ROS_INFO("Exploration stopped.");
-    ros::shutdown();
   }
 
 }
@@ -324,6 +323,7 @@ bool initExploration(tibot_navigation_system::AutomaticExplorationRequest &reque
   ROS_WARN("Dentro IF START");
   explore::Explore explore;
   ros::spin();
+  response.success = true;
   return true;
 }
 
@@ -331,7 +331,7 @@ int main(int argc, char **argv)
 {
   /*
     TODO:
-    Devolver true cuando acabe la exploración
+    Independizar el algoritmo del servicio
   */
   ros::init(argc, argv, "automatic_mapping_service_node");
   ros::NodeHandle n;
