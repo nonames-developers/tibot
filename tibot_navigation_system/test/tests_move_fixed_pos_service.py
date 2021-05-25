@@ -2,7 +2,7 @@
 
 import sys
 sys.path.insert(0, '../src')
-from move_fixed_pos_service import MoveFixedPos
+from py.move_fixed_pos_service import MoveFixedPos
 from tibot_navigation_system.srv import MoveFixedPosMsg, MoveFixedPosMsgRequest, MoveFixedPosMsgResponse
 import unittest
 
