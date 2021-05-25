@@ -39,6 +39,7 @@ add_service_files(
   FILES
   MoveFixedPosMsg.srv
   AutomaticExploration.srv
+  VoiceMsg.srv
 )
 
 add_action_files(
