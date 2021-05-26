@@ -78,7 +78,7 @@ class FigureGame():
             print(e)
 
         print("fotooooooooooooooooooooooo")
-        cv2.imshow("holaaaa", self.cv_image)
+        #cv2.imshow("holaaaa", self.cv_image)
         print(self.cv_image.shape)
         print(self.cv_image[400, 400, :])
         rospy.sleep(5)

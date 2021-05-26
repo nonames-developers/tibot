@@ -77,7 +77,7 @@
   <!-- VOICE -->
   <node pkg="tibot_navigation_system" type="play_voice_service.py" name="play_voice_service" output="screen"/>
 
-  <!-- VOICE -->
+  <!-- FIGURE GAME -->
   <node pkg="tibot_navigation_system" type="figure_game_service.py" name="figure_game_service" output="screen"/>
 
 </launch>
