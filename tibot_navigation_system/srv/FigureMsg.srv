@@ -1,0 +1,6 @@
+# request
+string figure
+string color
+---
+# response
+bool success
