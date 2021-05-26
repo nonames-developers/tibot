@@ -40,6 +40,7 @@ add_service_files(
   MoveFixedPosMsg.srv
   AutomaticExploration.srv
   VoiceMsg.srv
+  FigureMsg.srv
 )
 
 add_action_files(
