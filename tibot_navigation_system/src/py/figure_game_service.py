@@ -2,18 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
-This module includes the definition to be able to activate a service for the robot movements 
+This module includes the definition to be able to activate a figure game service
 Classes:
-    MoveFixedPos
+    FigureGame
 Exceptions:
     ROSInterruptException: Exception for operations that interrupted, e.g. due to shutdown.
 Returns:
-    MoveFixedPos: A movement object
+    FigureGame: A figure game object
 Yields:
     []
 """
 
-import numpy
 import rospy
 import cv2
 from figure import Figure
@@ -24,13 +23,15 @@ from tibot_navigation_system.srv import FigureMsg, FigureMsgRequest, FigureMsgRe
 
 class FigureGame():
     """
-    Representation of Tibot movement
+    Representation of figure game service
     Attributes:
         service_server (Rospy.Service): Service to listen requests
-        places_dict (Dict): Dict object
+        bridge_object (CvBridge): To converts between OpenCV images and ROS image messages
+        image_sub (Subscriber): Suscribe to robot camera topic
+        cv_image (OpenCV): Img msgs to an cv2
     Methods:
-        srv_callback(): Callback to move to received position 
-        degree_to_rad(): Convert degrees to radians
+        srv_callback(): Callback to check a figure game
+        camera_callback(): Callback to receive robot image
     """
 
     # 1: MENSAJE DE LAS FIGURAS rquest y response (START Y SUCCESS)
@@ -47,7 +48,7 @@ class FigureGame():
         rospy.spin()  # Keep the service open
 
     def srv_callback(self, request):
-        """ Function that receives a place and performs a robot movement 
+        """ Function that receives a figure str and color str and check figure with image
         Args:
             request (MoveFixedPosMsgRequest): A message that contains a place to move
         Returns:
