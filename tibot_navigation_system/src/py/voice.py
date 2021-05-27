@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # Esto es necesario ya que los scripts de Python2 usan por defecto la codificación ASCII
@@ -5,7 +6,7 @@
 # en el español pero no en el inglés.
 
 """
-This module includes the definition to be able to load a customize sound
+This module includes the definition to be able to synthesize and load a customize sound
 
 Classes:
     Voice
