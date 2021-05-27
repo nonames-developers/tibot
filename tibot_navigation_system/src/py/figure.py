@@ -71,7 +71,7 @@ class Figure:
 
         # rango de azul
         blue_lower = [94, 80, 2]
-        blue_upper = [240, 255, 180]
+        blue_upper = [120, 255, 255]
         # rango de rojo
         red_lower = [0, 50, 50]
         red_upper = [15, 255, 255]
@@ -127,7 +127,7 @@ class Figure:
         img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         low_value = figure_features.get('lower')
         up_value = figure_features.get('upper')
-        curves = figure_features.get('curves')
+        curves = int(figure_features.get('curves'))
 
         # Define mask
         color_lower = np.array(low_value, np.uint8)
@@ -137,8 +137,12 @@ class Figure:
 
         # For x color
         color_mask = cv2.dilate(color_mask, kernal)
-        res_color = cv2.bitwise_and(img, img,
-                                    mask=color_mask)
+        res_color = cv2.bitwise_and(img, img, mask=color_mask)
+
+        cv2.imshow("MASK", color_mask)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
         # Creating contour to track color
         _, contours, _ = cv2.findContours(color_mask,
                                           cv2.RETR_TREE,
@@ -147,18 +151,14 @@ class Figure:
         for _, contour in enumerate(contours):
             area = cv2.contourArea(contour)
             if(area > 100):
-
                 x, y, w, h = cv2.boundingRect(contour)
                 img = cv2.rectangle(img, (x, y),
                                     (x + w, y + h),
                                     (0, 0, 255), 2)
-                cv2.putText(img, "Red Colour", (x, y),
-                            cv2.FONT_HERSHEY_SIMPLEX, 1.0,
-                            (0, 0, 255))
+                is_shape = self.detect_shape(contours, curves)
+                return is_shape
 
-                shape = self.detect_shape(contours, curves)
-                return shape
-            return False
+        return False
 
     def detect_shape(self, contours, curves):
         """ Detect image shape with a mask that has been created with figure features (contours and curves)
@@ -185,4 +185,4 @@ class Figure:
             elif 1 == curves:
                 return True
 
-            return False
+        return False

@@ -63,6 +63,9 @@ class FigureGame():
         f = Figure(figure_to_detect, color_to_detect)
         state = f.check(self.cv_image)
 
+        while (state == False):
+            state = f.check(self.cv_image)
+            
         # Result of the execution from the service
         response = FigureMsgResponse()
         if state:
@@ -85,12 +88,9 @@ class FigureGame():
         except CvBridgeError as e:
             print(e)
 
-        print(self.cv_image.shape)
-        print(self.cv_image[400, 400, :])
-        rospy.sleep(10)
-        print("fotooooooooooooooooooooooo!!!")
-        cv2.imshow("Image received", self.cv_image)
-        cv2.waitKey(0)
+        #print(self.cv_image.shape)
+        #print(self.cv_image[400, 400, :]) 
+        #print("fotooooooooooooooooooooooo!!!")
 
 
 def main():
