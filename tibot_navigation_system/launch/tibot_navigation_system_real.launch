@@ -77,5 +77,13 @@
   <group if="$(arg open_rviz)">
     <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(arg rviz_config)"/>
   </group>
+ <!-- SOUND_PLAY --> 
+  <node pkg="sound_play" type="soundplay_node.py" name="soundplay_node" output="screen"/>
+
+  <!-- VOICE -->
+  <node pkg="tibot_navigation_system" type="play_voice_service.py" name="play_voice_service" output="screen"/>
+
+  <!-- FIGURE GAME -->
+  <node pkg="tibot_navigation_system" type="figure_game_service.py" name="figure_game_service" output="screen"/>
 
 </launch>

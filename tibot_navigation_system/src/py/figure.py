@@ -139,9 +139,9 @@ class Figure:
         color_mask = cv2.dilate(color_mask, kernal)
         res_color = cv2.bitwise_and(img, img, mask=color_mask)
 
-        cv2.imshow("MASK", color_mask)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        #cv2.imshow("MASK", color_mask)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
 
         # Creating contour to track color
         _, contours, _ = cv2.findContours(color_mask,
