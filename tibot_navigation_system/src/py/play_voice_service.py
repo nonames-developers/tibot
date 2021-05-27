@@ -41,13 +41,13 @@ class PlayVoice():
         rospy.spin()  # Keep the service open
 
     def srv_callback(self, request):
-        """ Function that receives a place and performs a robot movement 
+        """ Function that receives a phrase to play it with voice
 
         Args:
             request (VoiceMsgRequest): A message that contains a phrase (text) to play
 
         Returns:
-            response (Boolean): Success or not
+            response (VoiceMsgResponse): Success or not
         """
 
         # We obtain the data of the received message
@@ -65,10 +65,6 @@ class PlayVoice():
 
         # Method 1: Play Wave file directly from Client
         sound_client.playWave(output_path, volume=1.0)
-
-        # Method 2: Create Sound instance for file, play with '.play()' method
-        # sound = sound_client.waveSound(output_path, volume=1.0)
-        # sound.play()
 
         # Result of the execution from the service
         response = VoiceMsgResponse()

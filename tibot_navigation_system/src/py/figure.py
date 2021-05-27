@@ -6,7 +6,7 @@
 # en el español pero no en el inglés.
 
 """
-This module includes the definition to be able to check a figure
+This module includes the definition to be able to check a figure features
 
 Classes:
     Figure
@@ -26,48 +26,45 @@ class Figure:
     Representation of a figure
 
     Attributes:
-        __language (str): Examples: es-ES, en-US, en-IN ...
-        __output_format (str): Possible values: json (voice marks) | mp3 | ogg_vorbis | pcm
-        __sample_rate (str): Audio frequency: Recommended 22050 Hz
-        __text_type (str): Specifies whether the input text is plain text or SSML
-        __voice_id (str): Voice ID to use for synthesis: See DescribeVoices
-        __polly (Service): Service client instance
-        __text (str): Text to synthesize
+        __figure (str): A string name of figure received
+        __color (str): A string name of color received
 
     Methods:
-        load(): Voice synthesis process manager function
-        send_request(): Polly server request function
-        access_audio_from_response(): Access the audio stream from the response (binary stream in file)
-        play_audio(): Play the audio using the platform's default player
+        check(): Voice synthesis process manager function
+        str_to_object(): Convert string values to object with range and curves
+        detect_color(): Detect image color with a mask that has been created with figure features (range and curves)
+        detect_shape(): Detect image shape with a mask that has been created with figure features (contours and curves)
     """
 
     def __init__(self, figure, color):
         """
-        Initialize a Voice instance
+        Initialize a Figure instance
 
         Args:
-            prof_name (str): The name of a profile to use
-            language (str): Optional language code for request to synthesize speech
-            output_format (str): The format in which the returned output will be encoded
-            sample_rate (str): The specified audio frequency in Hz
-            text_type (str): Specifies whether the input text is plain text or SSML
-            voice_id (str): Voice ID to use for synthesis
+            figure (str): figure
+            color (str): color
         """
         self.figure = figure
         self.color = color
 
     def check(self, cv_image):
+        """ Check figure features of the image capture received 
+
+        Args:
+            cv_image (OpenCV): CV2 image
+
+        Returns:
+            state (Boolean): Returns the status of the comparison between the requested image and the received image capture 
+        """
         figure_features = self.str_to_object()
         state = self.detect_color(cv_image, figure_features)
         return state
 
     def str_to_object(self):
-        """ Convert strings to our Obj
-        Args:
-            figure (str): figure
-            color (str): color
+        """ Convert string values to object with range and curves
+
         Returns:
-            result {(CURVES, LOWER, UPPER)}: Obj
+            result ({curves, lower, upper}): Figure features of the image capture received
         """
         # variables y rangos
         result = dict()
@@ -84,29 +81,47 @@ class Figure:
 
         if(self.color == "azul"):
             if(self.figure == "cuadrado"):
-                result.update({"curves": "4", "lower": blue_lower, "upper": blue_upper})
+                result.update(
+                    {"curves": "4", "lower": blue_lower, "upper": blue_upper})
             if(self.figure == "circulo"):
-                result.update({"curves": "1", "lower": blue_lower, "upper": blue_upper})
+                result.update(
+                    {"curves": "1", "lower": blue_lower, "upper": blue_upper})
             if(self.figure == "triangulo"):
-                result.update({"curves": "3", "lower": blue_lower, "upper": blue_upper})
+                result.update(
+                    {"curves": "3", "lower": blue_lower, "upper": blue_upper})
         if(self.color == "rojo"):
             if(self.figure == "cuadrado"):
-                result.update({"curves": "4", "lower": red_lower, "upper": red_upper})
+                result.update(
+                    {"curves": "4", "lower": red_lower, "upper": red_upper})
             if(self.figure == "circulo"):
-                result.update({"curves": "1", "lower": red_lower, "upper": red_upper})
+                result.update(
+                    {"curves": "1", "lower": red_lower, "upper": red_upper})
             if(self.figure == "triangulo"):
-                result.update({"curves": "3", "lower": red_lower, "upper": red_upper})
+                result.update(
+                    {"curves": "3", "lower": red_lower, "upper": red_upper})
         if(self.color == "verde"):
             if(self.figure == "cuadrado"):
-                result.update({"curves": "4", "lower": green_lower, "upper": green_upper})
+                result.update(
+                    {"curves": "4", "lower": green_lower, "upper": green_upper})
             if(self.figure == "circulo"):
-                result.update({"curves": "1", "lower": green_lower, "upper": green_upper})
+                result.update(
+                    {"curves": "1", "lower": green_lower, "upper": green_upper})
             if(self.figure == "triangulo"):
-                result.update({"curves": "3", "lower": green_lower, "upper": green_upper})
+                result.update(
+                    {"curves": "3", "lower": green_lower, "upper": green_upper})
 
         return result
 
     def detect_color(self, img, figure_features):
+        """ Detect image color with a mask that has been created with figure features (range and curves)
+
+        Args:
+            img (OpenCV): CV2 image
+            figure_features (Dict): Dictionary of figure features of the image capture received
+
+        Returns:
+             state (Boolean): If figure is valid or not
+        """
 
         # low_value, up_value, curves
         img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -114,17 +129,17 @@ class Figure:
         up_value = figure_features.get('upper')
         curves = figure_features.get('curves')
 
-        # define mask
+        # Define mask
         color_lower = np.array(low_value, np.uint8)
         color_upper = np.array(up_value, np.uint8)
         color_mask = cv2.inRange(img_hsv, color_lower, color_upper)
         kernal = np.ones((5, 5), "uint8")
 
-        # For red color
+        # For x color
         color_mask = cv2.dilate(color_mask, kernal)
         res_color = cv2.bitwise_and(img, img,
                                     mask=color_mask)
-        # Creating contour to track red color
+        # Creating contour to track color
         _, contours, _ = cv2.findContours(color_mask,
                                           cv2.RETR_TREE,
                                           cv2.CHAIN_APPROX_SIMPLE)
@@ -134,9 +149,9 @@ class Figure:
             if(area > 100):
 
                 x, y, w, h = cv2.boundingRect(contour)
-                img = cv2.rectangle(img, (x, y), 
-                                        (x + w, y + h), 
-                                        (0, 0, 255), 2)
+                img = cv2.rectangle(img, (x, y),
+                                    (x + w, y + h),
+                                    (0, 0, 255), 2)
                 cv2.putText(img, "Red Colour", (x, y),
                             cv2.FONT_HERSHEY_SIMPLEX, 1.0,
                             (0, 0, 255))
@@ -146,6 +161,15 @@ class Figure:
             return False
 
     def detect_shape(self, contours, curves):
+        """ Detect image shape with a mask that has been created with figure features (contours and curves)
+
+        Args:
+            contours (Iterable): figure contours 
+            curves (str): figure curves
+
+        Returns:
+            state (Boolean): If figure is valid or not
+        """
 
         for contorno in contours:
             poligonoAproximado = cv2.approxPolyDP(
