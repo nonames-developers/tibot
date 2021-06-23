@@ -38,7 +38,6 @@ class MoveFixedPos():
         srv_callback(): Callback to move to received position 
         degree_to_rad(): Convert degrees to radians
     """
-
     def __init__(self):
         rospy.init_node('move_fixed_pos_service', anonymous=True)
         self.service_server = rospy.Service(

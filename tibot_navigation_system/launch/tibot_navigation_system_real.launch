@@ -17,7 +17,7 @@
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
 
   <!-- MAPPING -->
-  <arg name="map_file" default="$(find tibot_navigation_system)/maps/mymap.yaml"/>
+  <arg name="map_file" default="$(find tibot_navigation_system)/maps/my_map.yaml"/>
 
   <!-- MAP SERVER -->
   <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)"/>
@@ -86,4 +86,8 @@
   <!-- FIGURE GAME -->
   <node pkg="tibot_navigation_system" type="figure_game_service.py" name="figure_game_service" output="screen"/>
 
+ <!-- My Package launch file
+    <node pkg="tibot_prediction" type="predict.py" name="Predict"  output="screen">
+    </node>
+  -->
 </launch>

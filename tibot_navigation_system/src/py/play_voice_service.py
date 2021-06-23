@@ -50,6 +50,8 @@ class PlayVoice():
             response (VoiceMsgResponse): Success or not
         """
 
+        rospy.logerr(request.phrase)
+        
         # We obtain the data of the received message
         phrase_to_play = str(request.phrase)
 
